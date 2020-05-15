@@ -1,5 +1,5 @@
 //inits random num from 1-3 to represent rock paper or scissors
-let compNum = Math.floor(Math.random() * 3) + 1;
+let compChoice = Math.floor(Math.random() * 3) + 1;
 
 //prompts user to type choice and turns it to lowercase for manipulation
 let userChoice = prompt("Please type Rock Paper or Scissors:").toLowerCase();
@@ -8,6 +8,8 @@ let userChoice = prompt("Please type Rock Paper or Scissors:").toLowerCase();
 while (userChoice !== "rock" && userChoice !== "paper" && userChoice !== "scissors") {
     userChoice = prompt("You did not type a valid choice, please type Rock Paper or Scissors").toLowerCase();
 }
+
+let userNum = 5;
 
 //depending on choice assigns corresponding value to userNum
 if (userChoice == "rock") {
@@ -20,62 +22,64 @@ else if (userChoice == "scissors") {
     userNum = 3;
 }
 
-let compChoice = 0;
+let compType = "null";
 
-if (compNum == 1) {
-    compChoice = "rock"
+if (compChoice == 1) {
+    compType = "rock"
 }
-else if (compNum == 2) {
-    compChoice = "paper"
+else if (compChoice == 2) {
+    compType = "paper"
 }
-else if (compNum == 3) {
-    compChoice = "scissors"  
+else if (compChoice == 3) {
+    compType = "scissors"  
 }
 
 //inits function to declare winner after user and computer have made choice
-let score = function playRound(userNum, compNum) {
-    
-    //declare var that returns winner, 1 = user 2 = comp
-    let winner = 3;
+let winner = 3;
 
-    //bunch of if statements to cycle through outcomes to determine winner
-    if (userNum === compNum) {
-        return winner = 0;
+function playRound(userValue, computerValue) {
+
+    if(userNum == 1 && compChoice == 2) {
+        winner = 2;
     }
 
-    else if (userNum === 1 && compNum === 2) {
-        return winner = 2;
+    if(userNum == 1 && compChoice == 3) {
+        winner = 1;
     }
 
-    else if (uuserNum === 1 && compNum === 3) {
-        return winner = 1;
+    if(userNum == 2 && compChoice == 1) {
+        winner = 1;
     }
 
-    else if (userNum === 2 && compNum === 1) {
-        return winner = 1;
+    if(userNum == 2 && compChoice == 3) {
+        winner = 2;
     }
 
-    else if (userNum === 2 && compNum === 3) {
-        return winner = 2;
+    if(userNum == 3 && compChoice == 1) {
+        winner = 2;
     }
 
-    else if (userNum === 3 && compNum === 1) {
-        return winner = 2;
+    if(userNum == 3 && compChoice == 2) {
+        winner = 1;
     }
 
-    else if (userNum === 3 && compNum === 2) {
-        return winner = 1;
+    if(userNum == compChoice) {
+        winner = 0;
     }
+
+    return winner;
+ }
+
+winner = playRound(userNum, compChoice);
+
+if (winner == 1) {
+    console.log(`Congrats ${userChoice} beats ${compType} you win!`);
 }
 
-if (score == 1) {
-    console.log(`Congrats ${userChoice} beats ${compChoice} you win!`);
-}
-else if (score == 2) {
-    console.log(`Sorry ${compChoice} beats ${userChoice} you lose.`);
-}
-else if (score == 0) {
-    console.log(`It's a tie, ${userChoice} equals ${compChoice}.`);
+if (winner == 2) {
+    console.log(`Sorry ${compType} beats ${userChoice} you lose.`);
 }
 
-console.log("program complete");
+if (winner == 0) {
+    console.log(`It's a tie, ${userChoice} equals ${compType}.`);
+}
